@@ -239,7 +239,7 @@ var DocBar = React.createClass({
         var api = this.props.state;
         var requestGroupItems=null;
 
-        var requestGroups=Underscore.groupBy(api.requests, function(request){
+        var requestGroups=Underscore.groupBy(Underscore.sortBy(api.requests,"name"), function(request){
             return request.folder;
         });
 
@@ -251,8 +251,9 @@ var DocBar = React.createClass({
                 return folder.id===Underscore.first(requestGroup).folder;
             });
             var folderName= (folderIndex!==-1)? api.folders[folderIndex].name: requestGroup.folder;
+            var folderDescription= (folderIndex!==-1)? api.folders[folderIndex].description: requestGroup.folder;
             var folderLink="#"+folderName;
-            return (<Panel collapsible defaultExpanded header={folderName}> <ListGroup href={folderLink} >
+            return (<Panel collapsible defaultExpanded header={folderName}><div>{folderDescription}</div> <ListGroup href={folderLink} >
                 {requestGroupItems}
             </ListGroup></Panel>);
         });
@@ -261,6 +262,7 @@ var DocBar = React.createClass({
           <div>
               <PanelGroup>
                   <h1 className='apiTitle'>{api.name}</h1>
+                  <div>{api.description}</div>
                   {requestGroupsToRender}
               </PanelGroup>
           </div>
