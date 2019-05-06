@@ -257,11 +257,13 @@ var DocBar = React.createClass({
                 {requestGroupItems}
             </ListGroup></Panel>);
         });
-
+        var today = new Date();
+        var date = today.getDate()+'.'+(today.getMonth()+1)+'.'+today.getFullYear()+' '+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         toRender=(
           <div>
               <PanelGroup>
                   <h1 className='apiTitle'>{api.name}</h1>
+                  <div><strong>Generated {date}</strong></div>
                   <div>{api.description}</div>
                   {requestGroupsToRender}
               </PanelGroup>
